@@ -11,7 +11,7 @@ controls.rotateSpeed = 0.5;
 camera.position.z = 50;
 
 const loader = new THREE.TextureLoader();
-loader.load('textures/galaxy.jpg', texture => scene.background = texture);
+loader.load('./textures/galaxy.jpg', (texture) => scene.background = texture);
 
 const tooltip = document.getElementById('tooltip');
 const raycaster = new THREE.Raycaster();
