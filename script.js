@@ -40,7 +40,7 @@ function createPlanet(data) {
   });
 }
 
-fetch('info.json')
+fetch('./info.json')
   .then(res => res.json())
   .then(data => {
     data.forEach(obj => createPlanet(obj));
