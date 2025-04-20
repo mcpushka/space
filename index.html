@@ -36,7 +36,7 @@
     camera.position.z = 50;
 
     const loader = new THREE.TextureLoader();
-    loader.load('textures/galaxy.jpg', (texture) => {
+    loader.load('space/textures/galaxy.jpg', (texture) => {
       scene.background = texture;
     });
 
@@ -69,7 +69,7 @@
       });
     }
 
-    fetch('info.json')
+    fetch('space/info.json')
       .then(res => res.json())
       .then(data => {
         data.forEach(obj => {
@@ -82,7 +82,8 @@
             orbitCenter: obj.orbitCenter || [0, 0, 0],
             orbitRadius: obj.orbitRadius || distance,
             orbitSpeed: obj.orbitSpeed || 0.01 + Math.random() * 0.01,
-            texture: obj.texture_path ? 'textures/' + obj.texture_path : null,
+            texture: obj.texture_path ? 'space/textures/' + obj.texture_path : null,
+
             famous: ['Earth', 'Mars', 'Jupiter', 'Saturn'].includes(obj.name)
           });
         });
