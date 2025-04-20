@@ -11,7 +11,7 @@ controls.rotateSpeed = 0.5;
 camera.position.z = 50;
 
 const loader = new THREE.TextureLoader();
-loader.load('./textures/galaxy.jpg', (texture) => scene.background = texture);
+loader.load('textures/galaxy.jpg', texture => scene.background = texture);
 
 const tooltip = document.getElementById('tooltip');
 const raycaster = new THREE.Raycaster();
@@ -21,7 +21,7 @@ const planets = [], planetNames = [], orbitData = [];
 
 function createPlanet(data) {
   const geometry = new THREE.SphereGeometry(data.radius, 32, 32);
-  const texture = data.texture_path ? loader.load("textures/" + data.texture_path) : null;
+  const texture = data.texture ? loader.load(data.texture) : null;
   const material = new THREE.MeshStandardMaterial({
     map: texture,
     emissive: data.famous ? new THREE.Color('white') : new THREE.Color('black'),
@@ -40,10 +40,23 @@ function createPlanet(data) {
   });
 }
 
-fetch('./info.json')
+fetch('info.json')
   .then(res => res.json())
   .then(data => {
-    data.forEach(obj => createPlanet(obj));
+    data.forEach(obj => {
+      const fallbackPos = [Math.random() * 50 - 25, 0, Math.random() * 50 - 25];
+      const distance = Math.sqrt(fallbackPos[0]**2 + fallbackPos[2]**2);
+      createPlanet({
+        name: obj.name,
+        radius: obj.radius || 1,
+        position: obj.position || fallbackPos,
+        orbitCenter: obj.orbitCenter || [0, 0, 0],
+        orbitRadius: obj.orbitRadius || distance,
+        orbitSpeed: obj.orbitSpeed || 0.01 + Math.random() * 0.01,
+        texture: obj.texture_path ? 'textures/' + obj.texture_path : null,
+        famous: ['Earth', 'Mars', 'Jupiter', 'Saturn'].includes(obj.name)
+      });
+    });
   });
 
 const pointLight = new THREE.PointLight(0xffffff, 2);
@@ -59,6 +72,7 @@ scene.add(sun);
 function animate() {
   requestAnimationFrame(animate);
   controls.update();
+
   planets.forEach((p, i) => {
     p.rotation.y += 0.005;
     const o = orbitData[i];
@@ -68,7 +82,9 @@ function animate() {
       p.position.z = o.center[2] + o.radius * Math.sin(o.angle);
     }
   });
+
   sun.material.opacity = 0.8 + 0.1 * Math.sin(Date.now() * 0.002);
+
   renderer.render(scene, camera);
 }
 animate();
