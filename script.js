@@ -1,5 +1,6 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.1/examples/jsm/controls/OrbitControls.js';
+import * as THREE        from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/three.module.min.js';
+import { OrbitControls } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/examples/jsm/controls/OrbitControls.js';
+
 
 // Сцена, камера и рендерер
 const scene = new THREE.Scene();
