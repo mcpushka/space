@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   overflow: hidden;
@@ -8,6 +9,7 @@ body {
 canvas {
   display: block;
 }
+
 
 #tooltip {
   position: absolute;
@@ -22,4 +24,34 @@ canvas {
   white-space: nowrap;
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(2px);
+}
+
+
+#loader-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+
+#progress-container {
+  width: 60%;
+  max-width: 400px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 10px;
+}
+
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #0f0;
+  transition: width 0.2s ease;
 }
