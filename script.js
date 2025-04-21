@@ -1,17 +1,19 @@
-import * as THREE        from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/three.module.min.js';
-import { OrbitControls } from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/examples/jsm/controls/OrbitControls.js';
+// script.js (ES module)
+import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
+import { OrbitControls } from 'https://unpkg.com/three@0.150.1/examples/jsm/controls/OrbitControls.js';
 
-
-// Сцена, камера и рендерер
+// Сцена и камера
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
 );
-camera.position.z = 50;
+camera.position.z = 5;
 
+// Рендерер
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -22,43 +24,26 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 
 // Свет
-const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(0, 0, 0);
-scene.add(pointLight);
+const light = new THREE.PointLight(0xffffff, 1);
+light.position.set(5, 5, 5);
+scene.add(light);
 
-// Данные по планетам (цвет, радиус, радиус орбиты, скорость)
-const planetData = [
-  { color: 0xff5555, radius: 2, orbitRadius: 20, speed: 0.02 },
-  { color: 0x55ff55, radius: 1.5, orbitRadius: 30, speed: 0.015 },
-  { color: 0x5555ff, radius: 1, orbitRadius: 40, speed: 0.01 },
-];
+// Планета — простая сфера
+const geo = new THREE.SphereGeometry(1, 32, 32);
+const mat = new THREE.MeshStandardMaterial({ color: 0x3399ff });
+const planet = new THREE.Mesh(geo, mat);
+scene.add(planet);
 
-// Создание планет
-const planets = [];
-planetData.forEach((d) => {
-  const geometry = new THREE.SphereGeometry(d.radius, 16, 16);
-  const material = new THREE.MeshStandardMaterial({ color: d.color });
-  const mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
-  planets.push({ mesh, ...d, angle: Math.random() * Math.PI * 2 });
-});
-
-// Анимация: вращение и орбита
+// Анимация
 function animate() {
   requestAnimationFrame(animate);
-  planets.forEach((p) => {
-    p.angle += p.speed;
-    p.mesh.position.x = p.orbitRadius * Math.cos(p.angle);
-    p.mesh.position.z = p.orbitRadius * Math.sin(p.angle);
-  });
+  planet.rotation.y += 0.01;
   controls.update();
   renderer.render(scene, camera);
 }
 animate();
 
-// Поддержка ресайза окна
+// Поддержка ресайза
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
