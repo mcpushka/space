@@ -15,7 +15,9 @@ window.addEventListener('DOMContentLoaded', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById('scene').appendChild(renderer.domElement);
 
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  
+  const controls = new OrbitControls(camera, renderer.domElement);
+
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
 
