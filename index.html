@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Planet Visualization</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:," />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/examples/js/controls/OrbitControls.js"></script>
-
+  <title>Space Visualization</title>
+  <style>
+    body { margin: 0; overflow: hidden; background-color: black; }
+    canvas { display: block; }
+    #tooltip {
+      position: absolute;
+      color: white;
+      padding: 5px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 5px;
+      pointer-events: none;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div id="scene"></div>
+  <div id="tooltip"></div>
+  <script src="three.min.js"></script>
+  <script src="OrbitControls.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
