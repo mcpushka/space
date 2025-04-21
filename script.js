@@ -1,23 +1,16 @@
-// script.js
 window.addEventListener('DOMContentLoaded', () => {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
 
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 300;
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById('scene').appendChild(renderer.domElement);
 
-  
-  const controls = new OrbitControls(camera, renderer.domElement);
-
+  // 👇 Здесь нужно инициализировать OrbitControls через глобальный THREE
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
 
@@ -26,7 +19,6 @@ window.addEventListener('DOMContentLoaded', () => {
   light.position.set(0, 0, 0);
   scene.add(light);
 
-  // Цвета по названиям планет
   const colorMap = {
     Mercury: 0xaaaaaa,
     Venus: 0xffcc66,
