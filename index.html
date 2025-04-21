@@ -3,16 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Space Visualization</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Стили -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Убираем 404 на favicon -->
+  <link rel="icon" href="data:," />
 </head>
 <body>
+  <!-- Оверлей загрузки -->
   <div id="loader-overlay">
     <div id="progress-container">
       <div id="progress-bar"></div>
     </div>
   </div>
+
+  <!-- Подсказки -->
   <div id="tooltip"></div>
 
-  <script type="module" src="script.js"></script>
+  <!-- Вот он — модульный скрипт -->
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
