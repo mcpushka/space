@@ -2,13 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Минимальная 3D-визуализация</title>
+  <title>Простая визуализация планет</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  <!-- Убираем 404 на favicon -->
+  <!-- пустой фавикон (чтобы не 404) -->
   <link rel="icon" href="data:," />
-
-  <!-- 1) Three.js UMD с Cloudflare CDN -->
+  <!-- 1) Three.js UMD -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/three.min.js"></script>
   <!-- 2) OrbitControls UMD -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/examples/js/controls/OrbitControls.js"></script>
@@ -16,7 +15,7 @@
   <script src="script.js"></script>
 </head>
 <body>
-  <!-- Контейнер для canvas -->
-  <div id="container"></div>
+  <!-- сюда Three.js прицепит <canvas> -->
+  <div id="scene"></div>
 </body>
 </html>
