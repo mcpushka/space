@@ -1,10 +1,10 @@
-// script.js (UMD‑style, без import)
+// ждем, пока Three.js и OrbitControls попадут в глобальную область
 window.addEventListener('DOMContentLoaded', () => {
   // 1) Сцена, камера, рендерер
-  const scene = new THREE.Scene();
+  const scene    = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
 
-  const camera = new THREE.PerspectiveCamera(
+  const camera   = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     0.1,
@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  // 2) Контролы
+  // 2) Орбитальные контролы
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.1;
@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
   point.position.set(5, 5, 5);
   scene.add(point);
 
-  // 4) Простая «планета»
+  // 4) «Планета» — простая сфера без текстуры
   const geo = new THREE.SphereGeometry(1, 16, 16);
   const mat = new THREE.MeshStandardMaterial({ color: 0x3399ff });
   const planet = new THREE.Mesh(geo, mat);
@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   animate();
 
-  // 6) Поддержка ресайза
+  // 6) Обработка ресайза окна
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
